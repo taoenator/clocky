@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    form(id="alarm-form", name="alarm", method="post", action="/alarm")
+        select#alarm-hours.unit(name='alarm-hours')
+            - hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            for item in hours
+              option(selected=7 == item) #{item}
+        select#alarm-minutes.unit(name='alarm-minutes')
+            - minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+            for item in minutes
+              option(selected=15 == item) #{item}
+        select#alarm-ampm.unit(name='alarm-ampm')
+            - ampm = ['am', 'pm']
+            for item in ampm
+              option(selected='am' == item) #{item}
+
+        div#alarm-weekdays
+            for item in days
+                input#days(type='checkbox', name='alarm-weekdays', checked=true, value=item)
+                p= item
+
+        button#set-alarm(name="submit", type="submit") Set Alarm
+
+block append scripts
+    script(src='/javascripts/clock.js')
